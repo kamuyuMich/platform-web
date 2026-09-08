@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2A2A28;       /* warm charcoal - text */
+  --color-paper: #FAF7F2;     /* warm off-white background */
+  --color-teal: #1B4B4B;      /* deep teal - primary, headers, links */
+  --color-amber: #C1662F;     /* terracotta accent - CTAs, highlights */
+  --color-line: #E6E0D6;      /* warm hairline borders */
+  --font-display: 'Newsreader', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+}
