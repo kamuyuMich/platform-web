@@ -56,7 +56,7 @@ export default function Home() {
           )}
         </div>
 
-        <div className="w-full max-w-[220px] sm:max-w-none mx-auto sm:mx-0">
+        <div className="w-full max-w-[220px] sm:max-w-[260px] mx-auto sm:mx-0">
           <DoctorPhoto profile={profile} />
         </div>
       </div>
