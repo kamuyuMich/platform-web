@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { fetchSections } from '../api/client'
+import { fetchSections, fetchProfile } from '../api/client'
 
 const STATIC_LINKS = [
   { to: '/about', label: 'About' },
