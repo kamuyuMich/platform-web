@@ -50,3 +50,8 @@ export const submitContact = async (payload) => {
   const { data } = await api.post('/contact', payload)
   return data
 }
+
+export const fetchSections = async () => {
+  const { data } = await api.get('/sections')
+  return data
+}

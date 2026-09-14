@@ -1,11 +1,10 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { fetchSections } from '../api/client'
 
-const LINKS = [
+const STATIC_LINKS = [
   { to: '/about', label: 'About' },
-  { to: '/digital-health', label: 'Digital Health' },
-  { to: '/ai-in-healthcare', label: 'AI in Healthcare' },
-  { to: '/research', label: 'Research' },
   { to: '/tools', label: 'Tools' },
   { to: '/insights', label: 'Insights' },
   { to: '/contact', label: 'Contact' },
@@ -13,12 +12,22 @@ const LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const { data: sections } = useQuery({ queryKey: ['sections'], queryFn: fetchSections })
+  const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: fetchProfile })
+  
+  const LINKS = [
+    { to: '/about', label: 'About' },
+    ...(sections || []).map((s) => ({ to: `/section/${s.slug}`, label: s.name, color: s.color })),
+    { to: '/tools', label: 'Tools' },
+    { to: '/insights', label: 'Insights' },
+    { to: '/contact', label: 'Contact' },
+  ]
 
   return (
     <header className="border-b border-line bg-paper/95 backdrop-blur sticky top-0 z-30">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
         <Link to="/" className="font-display text-xl font-semibold tracking-tight text-ink">
-          Digital Health Platform
+          {profile?.site_name || 'Your Practice'}
         </Link>
 
         <nav className="hidden lg:flex items-center gap-6 text-sm">
@@ -30,6 +39,7 @@ export default function Navbar() {
                 `hover:text-teal transition-colors ${isActive ? 'text-teal font-medium' : 'text-ink/80'}`
               }
             >
+              {l.color && <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />}
               {l.label}
             </NavLink>
           ))}
@@ -61,6 +71,7 @@ export default function Navbar() {
         <nav className="lg:hidden border-t border-line px-4 py-4 flex flex-col gap-3 text-sm">
           {LINKS.map((l) => (
             <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="text-ink/80">
+              {l.color && <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />}
               {l.label}
             </Link>
           ))}

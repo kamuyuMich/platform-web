@@ -88,9 +88,6 @@ export default function Footer() {
           {status === 'error' && <p className="text-xs text-red-600 mt-2">Something went wrong. Try again.</p>}
         </div>
       </div>
-      <p className="text-center text-xs text-ink/40 pb-6">
-        Educational and informational content only - not a substitute for professional medical advice.
-      </p>
     </footer>
   )
 }

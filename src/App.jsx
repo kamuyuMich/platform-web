@@ -9,6 +9,7 @@ import Contact from './pages/Contact'
 import Tools from './pages/Tools'
 import About from './pages/About'
 import Consulting from './pages/Consulting'
+import SectionPage from './pages/SectionPage'
 
 export default function App() {
   return (
@@ -20,28 +21,8 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/consulting" element={<Consulting />} />
 
-          <Route
-            path="/digital-health"
-            element={
-              <ContentList
-                type="article"
-                section="digital_health"
-                title="Digital Health"
-                description="Understanding how technology is reshaping healthcare delivery, health systems and patient experiences."
-              />
-            }
-          />
-          <Route
-            path="/ai-in-healthcare"
-            element={
-              <ContentList
-                type="article"
-                section="ai"
-                title="Artificial Intelligence in Healthcare"
-                description="How AI can support healthcare professionals, improve decision-making and transform care delivery."
-              />
-            }
-          />
+          <Route path="/section/:slug" element={<SectionPage />} />
+          <Route path="/section/:slug" element={<SectionPage />} />
           <Route
             path="/insights"
             element={<ContentList type="article" title="Insights" description="All articles, in one place." />}
