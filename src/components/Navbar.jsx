@@ -3,18 +3,11 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchSections, fetchProfile } from '../api/client'
 
-const STATIC_LINKS = [
-  { to: '/about', label: 'About' },
-  { to: '/tools', label: 'Tools' },
-  { to: '/insights', label: 'Insights' },
-  { to: '/contact', label: 'Contact' },
-]
-
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { data: sections } = useQuery({ queryKey: ['sections'], queryFn: fetchSections })
   const { data: profile } = useQuery({ queryKey: ['profile'], queryFn: fetchProfile })
-  
+
   const LINKS = [
     { to: '/about', label: 'About' },
     ...(sections || []).map((s) => ({ to: `/section/${s.slug}`, label: s.name, color: s.color })),
@@ -24,9 +17,9 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="border-b border-line bg-paper/95 backdrop-blur sticky top-0 z-30">
+    <header className="bg-teal sticky top-0 z-30">
       <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
-        <Link to="/" className="font-display text-xl font-semibold tracking-tight text-ink">
+        <Link to="/" className="font-display text-xl font-semibold tracking-tight text-white">
           {profile?.site_name || 'Your Practice'}
         </Link>
 
@@ -36,17 +29,19 @@ export default function Navbar() {
               key={l.to}
               to={l.to}
               className={({ isActive }) =>
-                `hover:text-teal transition-colors ${isActive ? 'text-teal font-medium' : 'text-ink/80'}`
+                `hover:text-white transition-colors flex items-center ${isActive ? 'text-white font-medium' : 'text-white/75'}`
               }
             >
-              {l.color && <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />}
+              {l.color && (
+                <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />
+              )}
               {l.label}
             </NavLink>
           ))}
         </nav>
 
         <div className="hidden lg:flex items-center gap-4">
-          <Link to="/search" aria-label="Search" className="text-ink/70 hover:text-teal">
+          <Link to="/search" aria-label="Search" className="text-white/75 hover:text-white">
             Search
           </Link>
           <Link
@@ -58,7 +53,7 @@ export default function Navbar() {
         </div>
 
         <button
-          className="lg:hidden text-ink"
+          className="lg:hidden text-white"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
           aria-expanded={open}
@@ -68,10 +63,12 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <nav className="lg:hidden border-t border-line px-4 py-4 flex flex-col gap-3 text-sm">
+        <nav className="lg:hidden border-t border-white/20 px-4 py-4 flex flex-col gap-3 text-sm">
           {LINKS.map((l) => (
-            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="text-ink/80">
-              {l.color && <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />}
+            <Link key={l.to} to={l.to} onClick={() => setOpen(false)} className="text-white/90 flex items-center">
+              {l.color && (
+                <span className="inline-block w-1.5 h-1.5 rounded-full mr-1.5" style={{ backgroundColor: l.color }} />
+              )}
               {l.label}
             </Link>
           ))}
